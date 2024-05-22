@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar</title>
+    <!-- Bootstrap CSS -->
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" integrity="sha384-xxx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            background-color: #343a40;
+            color: #fff;
+            min-width: 250px;
+            max-width: 250px;
+            transition: all 0.3s;
+        }
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            transition: background-color 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #495057;
+        }
+        .sidebar .active {
+            background-color: #495057;
+        }
+        .sidebar .sidebar-header {
+            padding: 20px;
+            background-color: #6c757d;
+        }
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff;
+        }
+        .navbar-toggler {
+            border-color: rgba(255,255,255,.1);
+        }
+        .navbar-toggler-icon {
+            color: #fff;
+        }
+        .card {
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+<body>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h4>Inventory Dashboard</h4>
+    </div>
+    <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+    <a href="#products"><i class="fas fa-boxes"></i> Products</a>
+    <a href="#stockrooms"><i class="fas fa-warehouse"></i> Stockrooms</a>
+    <a href="#receptions"><i class="fas fa-dolly"></i> Receptions</a>
+    <a href="#suppliers"><i class="fas fa-truck"></i> Suppliers</a>
+    <a href="#reports"><i class="fas fa-chart-line"></i> Reports</a>
+    <a href="/indexCategory"><i class="fas fa-th-list"></i> Categories</a>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-DI2KAX1GKQJhGcbv0gIcb0UbVjt3zH2Nfqb+XN8a8+zjZbsG+lW/gJmaGmn5xqTO" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

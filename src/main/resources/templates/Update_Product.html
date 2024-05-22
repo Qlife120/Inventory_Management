@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Product</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Update Product</h2>
+    <form action="/UpdateProductPost" method="post">
+        <input type="hidden" name="id" th:value="${productToBeUpdated.getProductCode()}">
+        <div class="form-group">
+            <label for="productName">Product Name:</label>
+            <input type="text" class="form-control" id="productName" name="productName" th:value="${productToBeUpdated.getProductName()}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="designation">Designation:</label>
+            <input type="text" class="form-control" id="designation" name="designation" th:value="${productToBeUpdated.getDesignation()}">
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" th:value="${productToBeUpdated.getQuantity()}">
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" class="form-control" id="price" name="price" th:value="${productToBeUpdated.getPrice()}">
+        </div>
+        <div class="form-group">
+            <label for="barcode">Barcode:</label>
+            <input type="text" class="form-control" id="barcode" name="barcode" th:value="${productToBeUpdated.getBarcode()}">
+        </div>
+        <div class="form-group">
+            <label for="categoryName">Category Name:</label>
+            <select class="form-control" id="categoryName" name="categoryName">
+                <option value="">Select Category</option>
+                <!-- Iterate over categories and populate options -->
+                <th:block th:each="category : ${categories}">
+                    <option th:value="${category.categoryName}" th:text="${category.categoryName}"></option>
+                </th:block>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Product</button>
+    </form>
+</div>
+</body>
+</html>
