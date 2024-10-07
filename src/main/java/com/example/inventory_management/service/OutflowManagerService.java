@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OutflowManagerService implements OutflowManager{
 
@@ -22,7 +24,9 @@ public class OutflowManagerService implements OutflowManager{
     @Override
     public boolean deleteOutflow(Integer id) {
         try{
-            outflowRepository.deleteById(id);
+            Outflow outflow = outflowRepository.findById(id).orElseThrow(()-> new RuntimeException("outflow not found for the id: " + id));
+            outflow.setIsdeleted(true);
+            outflowRepository.save(outflow);
             return true;
         }catch(Exception exception){
             System.out.println(exception.getMessage());
@@ -38,6 +42,11 @@ public class OutflowManagerService implements OutflowManager{
     @Override
     public Page<Outflow> getAllOutflow(int page, int taille) {
         return outflowRepository.findAll(PageRequest.of(page, taille));
+    }
+
+    @Override
+    public List<Outflow> getAllOutflows(){
+        return outflowRepository.findAll();
     }
 
     @Override

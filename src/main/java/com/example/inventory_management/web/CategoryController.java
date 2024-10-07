@@ -1,5 +1,6 @@
 package com.example.inventory_management.web;
 
+import org.springframework.data.domain.Page;
 import com.example.inventory_management.dao.entities.Category;
 import com.example.inventory_management.dao.entities.Product;
 import com.example.inventory_management.service.CategoryManager;
@@ -20,11 +21,34 @@ public class CategoryController {
     @Autowired
     public ProductManager productManager;
 
-    @GetMapping("/indexCategory")
+    /*@GetMapping("/indexCategory")
     public String CategoryList(Model model){
         List<Category> categories = categoryManager.getAllCategories();
             model.addAttribute("categories",categories);
         return "indexCategory";
+    }*/
+
+    @GetMapping("/indexCategory")
+    public String CategoryList(Model model, 
+                                @RequestParam(name = "page", defaultValue = "0") int page,
+                                @RequestParam(name = "taille", defaultValue="6") int taille, 
+                                @RequestParam(name = "search", defaultValue ="") String keyword)
+                                {
+            
+            Page<Category> categories = categoryManager.searchCategory(keyword,page, taille);   
+            if(categories.hasContent()){
+                model.addAttribute("categories", categories.getContent());
+            }
+            else{
+                System.out.println("-----------------------------------------------**");
+            }
+            int[] pages = new int[categories.getTotalPages()];
+            model.addAttribute("pages",pages);
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("page", page);
+            return "indexCategory";                               
+
+
     }
 
     @GetMapping("/addCategoryForm")

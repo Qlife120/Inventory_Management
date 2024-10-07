@@ -23,9 +23,9 @@ public class Supplier {
     private Integer supplierCode;
     @NotNull
     private  String supplierName;
-    @Max(100)
+   
     private String supplierAddress;
-    @Min(10)
+    
     private String phoneNumber;
     @Pattern(regexp = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}", message = "Invalid email address")
     private String supplierEmail;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class SupplierManagerService implements SupplierManager{
@@ -41,6 +42,21 @@ public class SupplierManagerService implements SupplierManager{
 
     @Override
     public Page<Supplier> searchSupplier(String keyword, int page, int taille) {
-        return supplierRepository.findSupplierBySupplierNameContainingIgnoreCase(keyword, PageRequest.of(page,taille));
+        return supplierRepository.findBySupplierNameContainingIgnoreCase(keyword, PageRequest.of(page,taille));
+    }
+
+    @Override
+    public Supplier getSupplierById(Integer id){
+
+        return supplierRepository.findById(id).get();
+        
+
+
+    }
+
+    @Override
+    public List<Supplier> getSuppliersList(){
+
+        return supplierRepository.findAll();
     }
 }

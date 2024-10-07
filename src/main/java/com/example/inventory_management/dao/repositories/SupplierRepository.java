@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Transactional
 public interface SupplierRepository extends JpaRepository<Supplier, Integer> {
-    public Page<Supplier> findSupplierBySupplierNameContainingIgnoreCase(String keyword, Pageable pageable);
+    public Page<Supplier> findBySupplierNameContainingIgnoreCase(String keyword, Pageable pageable);
 }

@@ -1,4 +1,4 @@
-package com.example.inventory_management.dao.entities;
+    package com.example.inventory_management.dao.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;

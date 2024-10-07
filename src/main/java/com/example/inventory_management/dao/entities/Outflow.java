@@ -26,6 +26,7 @@ public class Outflow {
      @NotNull
      @Min(0)
     private double OutflowPrice;
+     private boolean isdeleted;
 
     @ManyToOne
     public Product product;

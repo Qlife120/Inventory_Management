@@ -1,86 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sidebar</title>
-    <!-- Bootstrap CSS -->
-    <!-- Font Awesome CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" integrity="sha384-xxx" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-            background-color: #f8f9fa;
+        :root {
+            --sidebar-width: 250px;
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --hover-color: #2980b9;
         }
         .sidebar {
-            background-color: #343a40;
+            width: var(--sidebar-width);
+            background-color: var(--secondary-color);
             color: #fff;
-            min-width: 250px;
-            max-width: 250px;
-            transition: all 0.3s;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .sidebar-header {
+            background-color: var(--primary-color);
+            padding: 20px;
+            text-align: center;
+        }
+        .sidebar-header h4 {
+            margin: 0;
+            font-weight: 600;
         }
         .sidebar a {
             color: #fff;
             text-decoration: none;
             display: block;
-            padding: 15px;
+            padding: 15px 20px;
             transition: background-color 0.3s;
         }
-        .sidebar a:hover {
-            background-color: #495057;
+        .sidebar a:hover, .sidebar .active {
+            background-color: var(--hover-color);
         }
-        .sidebar .active {
-            background-color: #495057;
-        }
-        .sidebar .sidebar-header {
-            padding: 20px;
-            background-color: #6c757d;
-        }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        .navbar {
-            background-color: #343a40;
-        }
-        .navbar-brand, .navbar-nav .nav-link {
-            color: #fff;
-        }
-        .navbar-toggler {
-            border-color: rgba(255,255,255,.1);
-        }
-        .navbar-toggler-icon {
-            color: #fff;
-        }
-        .card {
-            margin: 15px 0;
+        .sidebar i {
+            margin-right: 10px;
+            width: 20px;
         }
     </style>
-
 </head>
 <body>
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h4>Inventory Dashboard</h4>
+    <div class="sidebar" th:fragment="sidebar">
+        <div class="sidebar-header">
+            <h4>Inventory Dashboard</h4>
+        </div>
+        <a href="/dashboard" class="active"><i class="fas fa-home"></i> Home</a>
+        <a href="/indexpage"><i class="fas fa-boxes"></i> Products</a>
+        <a href="/indexStockroom"><i class="fas fa-warehouse"></i> Stockrooms</a>
+        <a href="/indexCategory"><i class="fas fa-th-list"></i> Categories</a>
+        <a href="/indexSupplier"><i class="fas fa-truck"></i> Suppliers</a>
     </div>
-    <a href="/" class="active"><i class="fas fa-home"></i> Home</a>
-    <a href="#products"><i class="fas fa-boxes"></i> Products</a>
-    <a href="#stockrooms"><i class="fas fa-warehouse"></i> Stockrooms</a>
-    <a href="#receptions"><i class="fas fa-dolly"></i> Receptions</a>
-    <a href="#suppliers"><i class="fas fa-truck"></i> Suppliers</a>
-    <a href="#reports"><i class="fas fa-chart-line"></i> Reports</a>
-    <a href="/indexCategory"><i class="fas fa-th-list"></i> Categories</a>
-</div>
-
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-DI2KAX1GKQJhGcbv0gIcb0UbVjt3zH2Nfqb+XN8a8+zjZbsG+lW/gJmaGmn5xqTO" crossorigin="anonymous"></script>
-
-
 </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category List - Inventory Management System</title>
+    <title>Stockrooms - Inventory Management System</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -23,6 +23,28 @@
         .navbar-brand, .nav-link {
             color: #fff !important;
         }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            border-radius: 15px 15px 0 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .bg-card-1 { background-color: #e74c3c; }
+        .bg-card-2 { background-color: #2ecc71; }
+        .bg-card-3 { background-color: #f39c12; }
         .table-responsive {
             margin-top: 20px;
         }
@@ -36,12 +58,6 @@
         .btn-danger {
             background-color: #e74c3c;
             border-color: #e74c3c;
-        }
-        .btn-sm {
-            padding: 0.25rem 0.5rem;
-        }
-        .pagination .btn {
-            margin: 0 5px;
         }
     </style>
 </head>
@@ -72,33 +88,34 @@
         <div class="container my-4">
             <div class="row justify-content-center mb-3">
                 <div class="col-md-6">
-                    <form method="get" th:action="@{indexCategory}" class="d-flex">
-                        <input type="text" name="search" th:value="${keyword}" class="form-control me-2" placeholder="Search categories..."/>
+                    <form method="get" th:action="@{indexStockroom}" class="d-flex">
+                        <input type="text" name="search" th:value="${keyword}" class="form-control me-2" placeholder="Search stockrooms..."/>
                         <button class="btn btn-primary" type="submit">
                             <i class="fas fa-search"></i>
                         </button>
                     </form>
                 </div>
             </div>
-            <h1 class="text-center mb-4">Category List</h1>
-            <a th:href="@{/addCategoryForm}" class="btn btn-primary btn-sm mb-3">Add New Category</a>
+            <h1 class="text-center mb-4">Stockrooms</h1>
+            <a th:href="@{/addStockroomForm}" class="btn btn-primary btn-sm mb-3">Add Stockroom</a>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead class="table-dark">
                     <tr>
-                        <th>Category Name</th>
-                        <th>Category Designation</th>
+                        <th>Stockroom Code</th>
+                        <th>Stockroom Name</th>
+                        <th>Stockroom Address</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="entry : ${categories}">
-                        <td th:text="${entry.getCategoryId()}" hidden></td>
-                        <td th:text="${entry.getCategoryName()}"></td>
-                        <td th:text="${entry.getCategoryDesignation()}"></td>
+                    <tr th:each="entry : ${stockrooms}">
+                        <td th:text="${entry.getStockroomCode()}"></td>
+                        <td th:text="${entry.getStockroomName()}"></td>
+                        <td th:text="${entry.getAddress()}"></td>
                         <td>
-                            <a th:href="@{updateCategory/{id}(id=${entry.getCategoryId()})}" class="btn btn-primary btn-sm">Update</a>
-                            <a th:href="@{deleteCategory(id=${entry.getCategoryId()})}" class="btn btn-danger btn-sm">Delete</a>
+                            <a th:href="@{/updateStockroom(id=${entry.getStockroomCode()})}" class="btn btn-primary btn-sm">Update</a>
+                            <a th:href="@{/deleteStockroom(id=${entry.getStockroomCode()})}" class="btn btn-danger btn-sm">Delete</a>
                         </td>
                     </tr>
                     </tbody>
@@ -108,7 +125,7 @@
                 <ul class="pagination">
                     <li class="page-item" th:each="p, stat : ${pages}">
                         <a th:class="${stat.index} == ${page} ? 'btn btn-primary' : 'btn btn-outline-primary'"
-                           th:text="${stat.index}" th:href="@{indexCategory(page=${stat.index},search=${keyword})}"></a>
+                           th:text="${stat.index}" th:href="@{indexStockroom(page=${stat.index},search=${keyword})}"></a>
                     </li>
                 </ul>
             </div>

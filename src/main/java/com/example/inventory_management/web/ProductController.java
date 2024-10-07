@@ -1,9 +1,12 @@
 package com.example.inventory_management.web;
-
+import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import com.example.inventory_management.dao.entities.Category;
 import com.example.inventory_management.dao.entities.Product;
+import com.example.inventory_management.dao.entities.Supplier;
 import com.example.inventory_management.service.CategoryManager;
 import com.example.inventory_management.service.ProductManager;
+import com.example.inventory_management.service.SupplierManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,32 +23,86 @@ public class ProductController {
     @Autowired
     private CategoryManager categoryManager;
 
+    @Autowired
+    private SupplierManager supplierManager;
+
+ 
+
     @GetMapping("")
     public String start(){
-        return "redirect:dashboard";
+        return "redirect:login";
+    }
+
+    @GetMapping("/login")
+    public String showLogin(){
+        return "login" ;
     }
 
     @GetMapping("/dashboard")
     public String displayDashboard(Model model){
         List<Product> products = productManager.getAllProuctsList();
         long  StockValue = 0;
+        
+            // Fetch products with quantity less than 3
+        List<Product> lowStockProducts = products.stream()
+                                             .filter(product -> product.getQuantity() < 3)
+                                             .limit(3)
+                                             .collect(Collectors.toList());
+
+        long lowStockCount = products.stream()
+                                .filter(product -> product.getQuantity() < 3)
+                                .count();                                  
         for (int i=0;i<products.size();++i){
             Product currentProduct = products.get(i);
             StockValue += (currentProduct.getQuantity() * currentProduct.getPrice());
         }
+
+        List<Supplier> suppliers = supplierManager.getSuppliersList();
+        int supplier_Number = suppliers.size();
+
+
+
         int totalProducts = products.size();
         int  totalCategories = categoryManager.getAllCategories().size();
         model.addAttribute("totalProducts", totalProducts);
         model.addAttribute("totalCategories", totalCategories);
         model.addAttribute("StockValue", StockValue);
+        model.addAttribute("lowStockProducts", lowStockProducts);
+        model.addAttribute("lowStockCount", lowStockCount);
+        model.addAttribute("supplier_Number", supplier_Number);
+     
+
         return "dashboard";
 
     }
-    @GetMapping("/indexpage")
+    /*@GetMapping("/indexpage")
     public String ProductsList(Model model){
         List<Product> products = productManager.getAllProuctsList();
         model.addAttribute("products",products);
         return "indexlayout";
+    }*/
+
+    @GetMapping("/indexpage")
+    public String ProductsList(Model model, 
+                                @RequestParam(name = "page", defaultValue = "0") int page,
+                                @RequestParam(name = "taille", defaultValue="6") int taille, 
+                                @RequestParam(name = "search", defaultValue ="") String keyword)
+                                {
+            
+            Page<Product> products = productManager.searchProducts(keyword,page, taille);   
+            if(products.hasContent()){
+                model.addAttribute("products", products.getContent());
+            }
+            else{
+                System.out.println("-----------------------------------------------");
+            }
+            int[] pages = new int[products.getTotalPages()];
+            model.addAttribute("pages",pages);
+            model.addAttribute("keyword", keyword);
+            model.addAttribute("page", page);
+            return "indexlayout";                               
+
+
     }
 
     @GetMapping("/addProductForm")
@@ -76,7 +133,7 @@ public class ProductController {
 
     // Using RequestParam
     @PostMapping("/UpdateProductPost")
-    public String updateProductPost(@RequestParam(name="id") Integer id,
+    public String updateProductPost(@RequestParam(name="id") Integer     id,
                                      @RequestParam(name="productName") String productName,
                                     @RequestParam(name="designation") String desigantion,
                                     @RequestParam(name="quantity") int quantity,
@@ -96,7 +153,7 @@ public class ProductController {
         if(productManager.deleteProduct(id)){
             return "redirect:indexpage";
         }
-        return "redirect:indexpage";
+        return "errorProduct";
     }
 
 

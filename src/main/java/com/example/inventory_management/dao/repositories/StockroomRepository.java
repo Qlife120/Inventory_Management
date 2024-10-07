@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Transactional
 public interface StockroomRepository extends JpaRepository<Stockroom, Integer> {
-    public Page<Stockroom> findByStockroomNameContainingIgnoreCase(String ketword, Pageable pageable);
+    public Page<Stockroom> findByStockroomNameContainingIgnoreCase(String keyword, Pageable pageable);
 }

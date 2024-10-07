@@ -4,6 +4,8 @@ import com.example.inventory_management.dao.entities.Outflow;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface OutflowManager {
 
@@ -12,5 +14,7 @@ public interface OutflowManager {
     public Outflow updateOutflow(Outflow outflow);
     public Page<Outflow> getAllOutflow(int page, int taille);
     public Outflow searchOutflowById(Integer id);
+    public List<Outflow> getAllOutflows();
+    
 
 }

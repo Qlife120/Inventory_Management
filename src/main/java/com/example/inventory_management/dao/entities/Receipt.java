@@ -25,6 +25,7 @@ public class Receipt {
     @Min(0)
     @NotNull
     private double Receiptprice;
+    private boolean isdeleted = false;
 
     @ManyToOne
     public Product product;

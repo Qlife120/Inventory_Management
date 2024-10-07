@@ -39,9 +39,11 @@ public class OrderManagerService implements OrderManager{
         return orderRepository.findAll(PageRequest.of(page, taille));
     }
 
-    @Override
-    public Order searchOrderByorderId(Integer id) {
 
-        return orderRepository.searchOrderByOrderId(id);
+
+    @Override
+    public Page<Order> searchOrderByorderId(Integer id, int page, int taille) {
+
+        return orderRepository.searchOrderByOrderId(id, PageRequest.of(page, taille));
     }
 }

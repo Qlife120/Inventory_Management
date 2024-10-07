@@ -38,6 +38,7 @@ public class ProductManagerService implements ProductManager{
         return productRepository.findAll(PageRequest.of(page,taille));
     }
 
+    // method that handles the search when keyword = "" then all products are displayed.
     @Override
     public Page<Product> searchProducts(String keyword, int page, int taille) {
         return productRepository.findByDesignationContains(keyword, PageRequest.of(page,taille));

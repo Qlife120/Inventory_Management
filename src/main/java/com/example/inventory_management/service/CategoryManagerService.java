@@ -61,6 +61,6 @@ public class CategoryManagerService implements CategoryManager{
     @Override
     public Page<Category> searchCategory(String keyword, int page, int taille ) {
 
-        return categoryRepository.findCategoriesByCategoryDesignation(keyword, PageRequest.of(page,taille));
+        return categoryRepository.findByCategoryDesignationContains(keyword, PageRequest.of(page,taille));
     }
 }

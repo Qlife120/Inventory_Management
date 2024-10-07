@@ -24,12 +24,12 @@ public class InventoryManagementApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Category category = new Category(null,"Tech","Pc Protable", null);
         categoryManager.addCategory(category);
-        Product product = new Product(null,"HP", "Pc Prortable" ,100010, 100, "11234", category);
+        Product product = new Product(null,"HP", "Pc Portable" ,150, 100, "11234", category);
         productManager.addProduct(product);
 
         Category category1 = new Category(null,"Cuisine","Aliment", null);
         categoryManager.addCategory(category1);
-        Product product1 = new Product(null,"HP", "BAtata" ,100010, 100, "11231", category1);
+        Product product1 = new Product(null,"Apple", "Pc Portable" ,55, 100, "11231", category);
         productManager.addProduct(product1);
     }
 }

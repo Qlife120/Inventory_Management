@@ -18,8 +18,9 @@ public class Stockroom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer  stockroomCode;
-    @Max(100)
+
     private String stockroomName;
+    private String Address;
 
     @OneToMany(mappedBy = "stockroom", cascade = CascadeType.ALL)
     public List<Product> products = new ArrayList<Product>();
